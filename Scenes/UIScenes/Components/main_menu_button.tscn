@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dihsaenr8tsh7"]
+
+[ext_resource type="Texture2D" uid="uid://boqgd21vmcp2" path="res://Assets/UI/Buttons/blue_button03.png" id="1_6nioc"]
+[ext_resource type="Texture2D" uid="uid://bcpy7redpq4xj" path="res://Assets/UI/Buttons/blue_button05.png" id="2_uuf32"]
+[ext_resource type="FontFile" uid="uid://biein46k8i7ii" path="res://Assets/Fonts/Kenney Future Narrow.ttf" id="3_vnjp4"]
+
+[node name="MainMenuButton" type="TextureButton"]
+custom_minimum_size = Vector2(350, 75)
+size_flags_horizontal = 4
+texture_normal = ExtResource("1_6nioc")
+texture_pressed = ExtResource("2_uuf32")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.705882)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("3_vnjp4")
+theme_override_font_sizes/font_size = 40
+text = "New Game"
