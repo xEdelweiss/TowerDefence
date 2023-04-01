@@ -59,13 +59,13 @@ text = "About"
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Exit" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_3vm4v")]
+[node name="Quit" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_3vm4v")]
 layout_mode = 2
 
-[node name="Label" parent="MarginContainer/VBoxContainer/Exit" index="0"]
+[node name="Label" parent="MarginContainer/VBoxContainer/Quit" index="0"]
 text = "Quit"
 
 [editable path="MarginContainer/VBoxContainer/NewGame"]
 [editable path="MarginContainer/VBoxContainer/Settings"]
 [editable path="MarginContainer/VBoxContainer/About"]
-[editable path="MarginContainer/VBoxContainer/Exit"]
+[editable path="MarginContainer/VBoxContainer/Quit"]
