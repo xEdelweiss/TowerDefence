@@ -26,4 +26,4 @@ func update_tower_preview(new_position: Vector2, color: String):
 		drag_tower.modulate = Color(color)
 
 func remove_tower_preview():
-	get_node(TOWER_PREVIEW).queue_free()
+	get_node(TOWER_PREVIEW).free()

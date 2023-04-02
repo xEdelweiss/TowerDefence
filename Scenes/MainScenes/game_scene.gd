@@ -1,13 +1,16 @@
 extends Node2D
 
+const OBSTRUCTED_TILE_ID = 5
+
 @onready var ui = $UI as GameSceneUI
 
 var map_node: Node2D
 
 var build_mode = false
 var build_valid = false
-var build_location
-var build_type
+var build_location: Vector2
+var build_tile: Vector2i
+var build_type: String
 
 func _ready():
 	map_node = get_node("Map1") # todo: remove hardcode
@@ -29,7 +32,7 @@ func _unhandled_input(event):
 	
 func initiate_build_mode(tower_type: String):
 	if build_mode:
-		return
+		cancel_build_mode()
 	
 	build_type = tower_type + "T1"
 	build_mode = true
@@ -46,6 +49,7 @@ func update_tower_preview():
 		ui.update_tower_preview(tile_position, "adff4577")
 		build_valid = true
 		build_location = tile_position
+		build_tile = current_tile_position
 	else:
 		ui.update_tower_preview(tile_position, "ff333377")
 		build_valid = false
@@ -61,5 +65,8 @@ func verify_and_build():
 		var new_tower = (load("res://Scenes/Turrets/" + build_type.to_snake_case() + ".tscn") as PackedScene).instantiate() as Node2D
 		new_tower.position = build_location
 		map_node.get_node("Turrets").add_child(new_tower, true)
+
+		var tower_exclusion = map_node.get_node("TowerExclusion") as TileMap
+		tower_exclusion.set_cell(0, build_tile, OBSTRUCTED_TILE_ID, Vector2i(1, 0))
 		# todo: deduct cash
 		# todo: update cash label
