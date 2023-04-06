@@ -12,11 +12,14 @@ var build_location: Vector2
 var build_tile: Vector2i
 var build_type: String
 
+var current_wave = 0
+var enemies_in_wave = 0
+
 func _ready():
 	map_node = get_node("Map1") # todo: remove hardcode
-	
 	for i in get_tree().get_nodes_in_group("build_buttons") as Array[Button]:
 		i.pressed.connect(initiate_build_mode.bind(i.name))
+	start_next_wave()
 	
 func _process(delta):
 	if build_mode:
@@ -29,7 +32,11 @@ func _unhandled_input(event):
 	if event.is_action_released("ui_accept") and build_mode:
 		verify_and_build()
 		cancel_build_mode()
-	
+
+##
+## Building Functions
+##
+
 func initiate_build_mode(tower_type: String):
 	if build_mode:
 		cancel_build_mode()
@@ -70,3 +77,30 @@ func verify_and_build():
 		tower_exclusion.set_cell(0, build_tile, OBSTRUCTED_TILE_ID, Vector2i(1, 0))
 		# todo: deduct cash
 		# todo: update cash label
+
+##
+## Wave Functions
+##
+
+func start_next_wave():
+	var wave_data = retrieve_wave_data()
+	await get_tree().create_timer(0.2).timeout
+	# yield(get_tree().create_timer(0.2), "timeout")
+	spawn_enemies(wave_data)
+
+func retrieve_wave_data():
+	var wave_data = [["BlueTank", 1.5], ["BlueTank", 0.1]]
+	current_wave += 1
+	enemies_in_wave = wave_data.size()
+	return wave_data
+
+func spawn_enemies(wave_data):
+	for i in wave_data:
+		print("res://Scenes/Enemies/" + i[0].to_snake_case() + ".tscn")
+		var new_enemy = (load("res://Scenes/Enemies/" + i[0].to_snake_case() + ".tscn") as PackedScene).instantiate() as PathFollow2D
+		get_random_enemy_path().add_child(new_enemy, true)
+		await get_tree().create_timer(i[1]).timeout
+		#yield(get_tree().create_timer(i[1]), "timeout")
+
+func get_random_enemy_path() -> Path2D:
+	return map_node.get_node(str("EnemyPath", randi_range(1, 2)))
