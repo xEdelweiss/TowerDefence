@@ -38,3 +38,36 @@ func update_tower_preview(new_position: Vector2, color: String):
 
 func remove_tower_preview():
 	get_node(TOWER_PREVIEW_CONTAINER).free()
+
+##
+## Game Controls
+##
+
+func _on_pause_play_button_pressed():
+	var scene_tree = get_tree() as SceneTree
+	var game_scene = (get_parent() as GameScene)
+	
+	if game_scene.build_mode:
+		game_scene.cancel_build_mode()
+
+	if scene_tree.paused:
+		scene_tree.paused = false
+	elif game_scene.current_wave == 0:
+		game_scene.current_wave += 1
+		get_node("MarginContainer/HUD/VBoxContainer/IntroLabel").hide()
+		game_scene.start_next_wave()
+		scene_tree.paused = false
+	else:
+		scene_tree.paused = true
+
+
+func _on_speed_up_button_pressed():
+	var game_scene = (get_parent() as GameScene)
+
+	if game_scene.build_mode:
+		game_scene.cancel_build_mode()
+
+	if Engine.time_scale == 1:
+		Engine.time_scale = 2
+	else:
+		Engine.time_scale = 1

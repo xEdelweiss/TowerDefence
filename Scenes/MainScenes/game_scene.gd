@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name GameScene
+
 const OBSTRUCTED_TILE_ID = 5
 
 @onready var ui = $UI as GameSceneUI
@@ -19,7 +21,6 @@ func _ready():
 	map_node = get_node("Map1") # todo: remove hardcode
 	for i in get_tree().get_nodes_in_group("build_buttons") as Array[Button]:
 		i.pressed.connect(initiate_build_mode.bind(i.name))
-	start_next_wave()
 	
 func _process(delta):
 	if build_mode:
