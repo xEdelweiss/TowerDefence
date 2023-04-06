@@ -71,7 +71,9 @@ func verify_and_build():
 	if build_valid:
 		# todo: check if user has enough cash
 		var new_tower = (load("res://Scenes/Turrets/" + build_type.to_snake_case() + ".tscn") as PackedScene).instantiate() as Node2D
+		new_tower.built = true
 		new_tower.position = build_location
+		new_tower.set_meta("turret_type", new_tower.name)
 		map_node.get_node("Turrets").add_child(new_tower, true)
 
 		var tower_exclusion = map_node.get_node("TowerExclusion") as TileMap
