@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2hgeylkm2u1"]
+
+[ext_resource type="Texture2D" uid="uid://hrlayqwybp6q" path="res://Assets/Effects/hit1/explosion1.png" id="1_ca2un"]
+[ext_resource type="Texture2D" uid="uid://cc5mhfiqvkd6t" path="res://Assets/Effects/hit1/explosion2.png" id="2_dmgjb"]
+[ext_resource type="Texture2D" uid="uid://desqqr2qpuloe" path="res://Assets/Effects/hit1/explosion3.png" id="3_7ea28"]
+[ext_resource type="Texture2D" uid="uid://ddg1x5j1rjttl" path="res://Assets/Effects/hit1/explosion4.png" id="4_x83x8"]
+[ext_resource type="Texture2D" uid="uid://c8xyy6uq7auxs" path="res://Assets/Effects/hit1/explosion5.png" id="5_mmrx0"]
+[ext_resource type="Script" path="res://Scenes/SupportScenes/bullet_impact.gd" id="6_h2lmh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_itqud"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ca2un")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_dmgjb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7ea28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_x83x8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mmrx0")
+}],
+"loop": false,
+"name": &"impact",
+"speed": 15.0
+}]
+
+[node name="BulletImpact" type="AnimatedSprite2D"]
+scale = Vector2(0.269231, 0.269231)
+sprite_frames = SubResource("SpriteFrames_itqud")
+animation = &"impact"
+script = ExtResource("6_h2lmh")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

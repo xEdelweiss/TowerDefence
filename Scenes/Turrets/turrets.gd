@@ -27,7 +27,8 @@ func setup_range():
 
 func _physics_process(delta):
 	select_enemy()
-	turn()
+	if not animation_player.is_playing():
+		turn()
 	if target_enemy and ready_to_fire:
 		fire()
 
