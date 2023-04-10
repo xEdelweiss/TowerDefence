@@ -2,6 +2,8 @@ extends CanvasLayer
 
 class_name GameSceneUI
 
+@onready var hp = $InfoBar/HBoxContainer/HP as TextureProgressBar
+
 const TOWER_PREVIEW_CONTAINER = "TowerPreview"
 const DRAG_TOWER = "DragTower"
 const RANGE_SPRITE = "RangeSprite"
@@ -38,6 +40,17 @@ func update_tower_preview(new_position: Vector2, color: String):
 
 func remove_tower_preview():
 	get_node(TOWER_PREVIEW_CONTAINER).free()
+
+func update_health_bar(health):
+	var tween = create_tween()
+	tween.tween_property(hp, "value", health, 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+
+	if health >= 60:
+		hp.tint_progress = Color("499b00") # green
+	elif health <= 60 and health >= 25:
+		hp.tint_progress = Color("e1be32") # orange
+	else:
+		hp.tint_progress = Color("e11e1e") # red
 
 ##
 ## Game Controls

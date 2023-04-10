@@ -5,6 +5,21 @@
 [ext_resource type="Texture2D" uid="uid://cdwordoq8i7tj" path="res://Assets/Towers/towerDefense_tile249.png" id="2_gmmrs"]
 [ext_resource type="Texture2D" uid="uid://c85nvsquf3flp" path="res://Assets/Effects/towerDefense_tile297.png" id="4_hrjrl"]
 
+[sub_resource type="Animation" id="Animation_owfwt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Turret/Muzzle/MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_xv6xf"]
 resource_name = "fire"
 length = 0.15
@@ -20,21 +35,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_owfwt"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Turret/Muzzle/MuzzleFlash:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_swpkw"]

@@ -1,7 +1,12 @@
 extends PathFollow2D
 
+class_name BlueTank	
+
+signal on_base_damage(damage)
+
 var speed = 150
 var hp = 1000
+var base_damage = 21
 
 @onready var health_bar = $HealthBar
 @onready var impact_area = $Impact
@@ -14,6 +19,9 @@ func _ready():
 	health_bar.top_level = true
 
 func _physics_process(delta):
+	if progress_ratio == 1.0:
+		emit_signal("on_base_damage", base_damage)
+		queue_free()
 	move(delta)
 
 func move(delta):

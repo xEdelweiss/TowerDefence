@@ -2,6 +2,8 @@ extends Node2D
 
 class_name GameScene
 
+signal on_game_finished(win: bool)
+
 const OBSTRUCTED_TILE_ID = 5
 
 @onready var ui = $UI as GameSceneUI
@@ -13,6 +15,8 @@ var build_valid = false
 var build_location: Vector2
 var build_tile: Vector2i
 var build_type: String
+
+var base_health = 100
 
 var current_wave = 0
 var enemies_in_wave = 0
@@ -88,7 +92,6 @@ func verify_and_build():
 func start_next_wave():
 	var wave_data = retrieve_wave_data()
 	await get_tree().create_timer(0.2).timeout
-	# yield(get_tree().create_timer(0.2), "timeout")
 	spawn_enemies(wave_data)
 
 func retrieve_wave_data():
@@ -99,11 +102,17 @@ func retrieve_wave_data():
 
 func spawn_enemies(wave_data):
 	for i in wave_data:
-		print("res://Scenes/Enemies/" + i[0].to_snake_case() + ".tscn")
-		var new_enemy = (load("res://Scenes/Enemies/" + i[0].to_snake_case() + ".tscn") as PackedScene).instantiate() as PathFollow2D
+		var new_enemy = (load("res://Scenes/Enemies/" + i[0].to_snake_case() + ".tscn") as PackedScene).instantiate() as BlueTank
+		new_enemy.on_base_damage.connect(self._on_enemy_base_damage)
 		get_random_enemy_path().add_child(new_enemy, true)
 		await get_tree().create_timer(i[1]).timeout
-		#yield(get_tree().create_timer(i[1]), "timeout")
 
 func get_random_enemy_path() -> Path2D:
 	return map_node.get_node(str("Paths/EnemyPath", randi_range(1, 4)))
+
+func _on_enemy_base_damage(damage):
+	base_health -= damage
+	if base_health <= 0:
+		emit_signal("on_game_finished", false)
+	else:
+		get_node("UI").update_health_bar(base_health)
