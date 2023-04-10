@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1wlfpdkyya0b"]
+[gd_scene load_steps=5 format=3 uid="uid://b1wlfpdkyya0b"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/blue_tank.gd" id="1_c27mq"]
 [ext_resource type="Texture2D" uid="uid://gqyhdxkqnqq6" path="res://Assets/Enemies/tank_blue.png" id="1_m800w"]
+[ext_resource type="Texture2D" uid="uid://bvxdx8uklbj14" path="res://Assets/UI/HPbar.jpg" id="3_ldlp1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxg3g"]
 size = Vector2(46, 42)
@@ -17,3 +18,19 @@ texture = ExtResource("1_m800w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("RectangleShape2D_nxg3g")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -30.0
+offset_top = -35.0
+offset_right = 30.0
+offset_bottom = -29.0
+grow_horizontal = 2
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("3_ldlp1")
+texture_progress = ExtResource("3_ldlp1")
+tint_under = Color(0.239216, 0.239216, 0.239216, 1)
+tint_progress = Color(0.286275, 0.607843, 0, 1)
