@@ -1,8 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://kwo5bmfchrtj"]
+[gd_scene load_steps=8 format=3 uid="uid://kwo5bmfchrtj"]
 
 [ext_resource type="Texture2D" uid="uid://dnfvfrela2ynp" path="res://Assets/Towers/towerDefense_tile181.png" id="1_44f4q"]
 [ext_resource type="Script" path="res://Scenes/Turrets/gun_t_1.gd" id="1_qhhbo"]
 [ext_resource type="Texture2D" uid="uid://cdwordoq8i7tj" path="res://Assets/Towers/towerDefense_tile249.png" id="2_gmmrs"]
+[ext_resource type="Texture2D" uid="uid://c85nvsquf3flp" path="res://Assets/Effects/towerDefense_tile297.png" id="4_hrjrl"]
+
+[sub_resource type="Animation" id="Animation_xv6xf"]
+resource_name = "fire"
+length = 0.05
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Turret/Muzzle/MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_owfwt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Turret/Muzzle/MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_swpkw"]
+_data = {
+"RESET": SubResource("Animation_owfwt"),
+"fire": SubResource("Animation_xv6xf")
+}
 
 [node name="GunT1" type="Node2D"]
 script = ExtResource("1_qhhbo")
@@ -15,4 +54,18 @@ texture = ExtResource("2_gmmrs")
 offset = Vector2(10, 0)
 
 [node name="Muzzle" type="Marker2D" parent="Turret"]
+show_behind_parent = true
 position = Vector2(40, 0)
+
+[node name="MuzzleFlash" type="Sprite2D" parent="Turret/Muzzle"]
+visible = false
+show_behind_parent = true
+position = Vector2(15, 0)
+rotation = -1.5708
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("4_hrjrl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_swpkw")
+}

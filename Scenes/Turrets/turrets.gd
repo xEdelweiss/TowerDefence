@@ -3,6 +3,7 @@ extends Node2D
 const TURRET_TYPE_KEY = "turret_type"
 
 @onready var turret = $Turret as Node2D
+@onready var animation_player = $AnimationPlayer as AnimationPlayer
 
 var range_scene = preload("res://Scenes/range.tscn")
 var enemy_array = []
@@ -48,9 +49,21 @@ func fire():
 		return
 		
 	ready_to_fire = false
+	
+	if game_data.category == "bullet":
+		_fire_bullet()
+	elif game_data.category == "missile":
+		_fire_missile()
+	
 	target_enemy.on_hit(game_data.damage)
 	await get_tree().create_timer(game_data.rate_of_fire).timeout
 	ready_to_fire = true
+	
+func _fire_bullet():
+	animation_player.play("fire")
+	
+func _fire_missile():
+	pass
 
 func select_enemy():
 	if enemy_array.size() == 0 or built == false:

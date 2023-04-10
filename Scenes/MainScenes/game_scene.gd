@@ -106,4 +106,4 @@ func spawn_enemies(wave_data):
 		#yield(get_tree().create_timer(i[1]), "timeout")
 
 func get_random_enemy_path() -> Path2D:
-	return map_node.get_node(str("EnemyPath", randi_range(1, 4)))
+	return map_node.get_node(str("Paths/EnemyPath", randi_range(1, 4)))
